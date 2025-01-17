@@ -2,7 +2,7 @@ import { artworkService } from '@/services/artwork'
 import { useInfiniteQuery } from '@tanstack/react-query'
 
 const useArtworks = () => {
-  const fields = ['id', 'title']
+  const fields = ['id', 'title', 'image_id', 'artist_title']
 
   const artworkQuery = useInfiniteQuery({
     queryKey: ['artworks'],
@@ -11,12 +11,12 @@ const useArtworks = () => {
     },
     staleTime: 1000 * 60 * 60 * 24,
     getNextPageParam: (lastPage) => (
-        lastPage.pagination && lastPage.pagination.next_url 
-            ? lastPage.pagination.current_page + 1 
+        lastPage.nextPage 
+            ? lastPage.nextPage
             : undefined
     ),
   })
-  console.log('log', artworkQuery.data?.pages)
+
   return {
     data: artworkQuery.data,
     isLoading: artworkQuery.isLoading,
