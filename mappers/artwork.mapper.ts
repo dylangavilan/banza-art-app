@@ -7,7 +7,6 @@ class ArtworkMapper {
         id: artwork.id,
         artist: artwork.artist_title,
         poster: `https://www.artic.edu/iiif/2/${artwork.image_id}/full/100,/0/default.jpg`
-
        }
     }
     static mapResponseToArtworkData(response: ArtResponse): ArtworkData {

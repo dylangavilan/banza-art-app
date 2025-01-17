@@ -1,10 +1,16 @@
-import { View, Text, FlatList, Button, Image, StyleSheet, Dimensions } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import { View, Text, FlatList,  StyleSheet, Button } from 'react-native'
 import { useArtworks } from '@/hooks/useArtworks'
+import Card from '@/components/card'
 
 const HomeScreen = () => {
-  const { data, isLoading, nextPage, hasNext, isFetchingNextPage } = useArtworks()
-
+  const { 
+    data, 
+    isLoading, 
+    nextPage, 
+    hasNext, 
+    isFetchingNextPage } = useArtworks()
+  
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
@@ -12,19 +18,15 @@ const HomeScreen = () => {
       </View>
     )
   }
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>HomeScreen</Text>
       <FlatList
-    
+        keyExtractor={(item => item.id.toString() + Math.random())}
         numColumns={2}
         data={data?.pages.flatMap(page => page.artworks) ?? []}
         renderItem={({ item, index }) => (
-          <View key={item.id + index} style={styles.itemContainer}>
-            <Image source={{ uri: item.poster }} style={styles.image} resizeMode='contain' />
-            <Text style={styles.itemTitle}>{item.title}</Text>
-          </View>
+          <Card poster={item.poster} title={item.title} id={item.id.toString()} />
         )}
         onEndReached={() => { hasNext && nextPage() }}
         ListFooterComponent={isFetchingNextPage ? <Text>Loading...</Text> : null}
@@ -48,23 +50,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
-  itemContainer: {
-    flex: 1,
-    margin: 5,
-    borderColor: '#000',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    alignItems: 'center',
-    width: Dimensions.get('window').width / 2 - 20, 
-  },
-  image: {
-    width: 130,
-    height: 180,
-  },
-  itemTitle: {
-    textAlign: 'center',
-    marginTop: 5,
-  },
+
 })
 
 export default HomeScreen
