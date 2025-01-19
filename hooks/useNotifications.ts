@@ -12,7 +12,6 @@ Notifications.setNotificationHandler({
 });
 
 async function registerForPushNotificationsAsync() {
-  alert('registerForPushNotificationsAsync');
   if (Device.isDevice) {
     const { status: existingStatus } = await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;

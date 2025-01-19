@@ -2,16 +2,30 @@ import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import ArtsList from '@/components/art-list'
 import { useFavorites } from '@/context/useFavoritesContext'
+import { useArtworks } from '@/hooks/useArtworks'
+import { useFilterArts } from '@/hooks/useFilterArts'
+import FilterTabs from '@/components/filter-tabs'
 
 const FavoritesScreen = () => {
   const { artworks } = useFavorites()
-  
+  const { classifications = [] } = useArtworks()
+
+  const { 
+    filteredData, 
+    setSearch, 
+    handleSelect, 
+    selected
+  } = useFilterArts(artworks, classifications);
+
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.title}>HomeScreen</Text>
       </View>
-      <ArtsList artworks={artworks} />
+      <View>
+        <FilterTabs classifications={classifications} handleSelect={handleSelect} selected={selected} />
+      </View>
+      <ArtsList artworks={filteredData} />
     </View>
   )
 }

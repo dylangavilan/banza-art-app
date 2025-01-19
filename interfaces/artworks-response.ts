@@ -1,6 +1,6 @@
-export interface ArtsResponse {
+export interface ArtsResponse<T>{
     config:     Config;
-    data:       Data[];
+    data:       T;
     info:       Info;
     pagination: Pagination;
 }
@@ -18,6 +18,7 @@ export interface Data {
     publication_history: string;
     short_description:   string;
     title:               string;
+    classification_title: string;
 }
 
 export interface Info {

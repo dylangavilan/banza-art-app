@@ -1,9 +1,8 @@
 import { DEFAULT_FIELDS } from '@/constants'
 import { artworkService } from '@/services/artwork'
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 const useArtworks = () => {
-  // to do: implementar filter por labels, hay que pasarlo como segundo param nomas
 
   const artworkQuery = useInfiniteQuery({
     queryKey: ['artworks'],
@@ -17,9 +16,15 @@ const useArtworks = () => {
             : undefined
     ),
   })
-
+  const classificationsQuery = useQuery({
+    queryKey: ['classifications'],
+    queryFn: () => artworkService.getClassifications(),
+    staleTime: 1000 * 60 * 60 * 24
+  })
+  
   return {
-    data: artworkQuery.data,
+    data: artworkQuery.data?.pages.flatMap(page => page.artworks),
+    classifications: classificationsQuery.data,
     isLoading: artworkQuery.isLoading,
     nextPage: artworkQuery.fetchNextPage,
     hasNext: artworkQuery.hasNextPage,

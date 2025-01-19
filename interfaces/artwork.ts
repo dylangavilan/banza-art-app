@@ -6,7 +6,8 @@ interface Artwork {
     gallery_title?: string,
     publication_history?: string,
     short_description?: string,
-    category_titles?: string[]
+    category_titles?: string[],
+    classification_title: string,
 }
 
 interface ArtworkData {
@@ -14,3 +15,4 @@ interface ArtworkData {
     nextPage: number | null
 }
 
+type ClassificationName = Pick<Artwork, 'classification_title'>

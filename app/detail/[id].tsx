@@ -4,6 +4,7 @@ import { useArtworkDetail } from '@/hooks/useArtworkDetail'
 import { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import FavoriteButton from '@/components/favorite-button'
+import Loader from '@/components/ui/loader';
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams()
@@ -18,12 +19,13 @@ const DetailScreen = () => {
     });
   }, [navigation, artwork]);
 
-  if(!artwork) return <Text>Loading...</Text>
+  if(!artwork) return <Loader />
 
   return (
     <ScrollView>
       <View style={styles.imageContainer}>
-       <Image source={{ uri: artwork.poster }} style={{ width: '100%', height: 400 }} />
+       <Image source={{ uri: artwork.poster }} resizeMethod='scale' resizeMode='contain'
+       style={{ width: '100%', height: 400 }} />
       </View>
     </ScrollView>
   )
@@ -39,6 +41,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     position: 'relative',
+    backgroundColor: 'black',
   }
 })
 
