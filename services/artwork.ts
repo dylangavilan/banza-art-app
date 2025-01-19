@@ -1,18 +1,16 @@
-import { ArtResponse } from "@/interfaces/art-response"
+import { ArtsResponse } from "@/interfaces/artworks-response"
 import { api } from "./axios-config"
 import { ArtworkMapper } from "@/mappers/artwork.mapper";
+import { DetailResponse } from "@/interfaces/detail-response";
 
 const getArtworks = async (page: string,  fields: string[]): Promise<ArtworkData> => {
     try {
         let params = new URLSearchParams({ limit: '12'})
         params.append('page', page.toString());
-
         if(fields.length) {
             params.append('fields', fields.join(','))
         }
-
-        const { data } = await api.get<ArtResponse>('artworks', { params })
-
+        const { data } = await api.get<ArtsResponse>('artworks', { params })
         return ArtworkMapper.mapResponseToArtworkData(data)
     }
     catch(err) {
@@ -21,14 +19,16 @@ const getArtworks = async (page: string,  fields: string[]): Promise<ArtworkData
     }
 }
 
-const getArtworkById = async (id: string): Promise<Artwork> => { //rebuild
-    const fields = ['gallery_title','publication_history', 'short_description','category_titles', 'id', 'title', 'image_id', 'artist_title']
+const getArtworkById = async (id: string, fields: string[]): Promise<Artwork> =>  { //rebuild
 
     let params = new URLSearchParams()
-    params.append('fields', fields.join(','))
+    if(fields) {
+        params.append('fields', fields.join(','))
+    }
+    
+    const  { data } = await api.get<DetailResponse>(`artworks/${id}`, { params })
 
-    const  { data } = await api.get<any>(`artworks/${id}`, { params })
-    return data.data
+    return ArtworkMapper.mapArtwork(data.data, 500)
         
 }
 

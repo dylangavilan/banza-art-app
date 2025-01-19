@@ -7,11 +7,13 @@ export const styles = StyleSheet.create({
         borderColor: '#000',
         borderStyle: 'solid',
         borderWidth: 1,
+        flexDirection: 'column',
         alignItems: 'center',
-        width: Dimensions.get('window').width / 2 - 20, 
+        maxWidth: Dimensions.get('window').width / 2 - 20,
+        paddingVertical: 12,
       },
       image: {
-        width: 130,
+        width: '100%',
         height: 180,
       },
       itemTitle: {

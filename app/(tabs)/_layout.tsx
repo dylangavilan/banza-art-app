@@ -9,6 +9,7 @@ const TabLayout = () => {
         screenOptions={{
             headerTitleAlign: 'center',
             tabBarActiveTintColor: 'tomato',
+            headerShown: false,
         }}
     >
       <Tabs.Screen 
