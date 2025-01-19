@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState, } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNotifications } from '@/hooks/useNotifications';
 
 
 interface ArtworkState {
@@ -16,7 +17,8 @@ export const FavoritesContext = createContext<ArtworkActions | undefined>(undefi
 
 export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
-
+  const { sendLocalNotification } = useNotifications();
+  
   const addFavorite = async (artwork: Artwork) => {
     const isInFavorites = artworks.some((a) => a.id === artwork.id)
     if(isInFavorites) return;
