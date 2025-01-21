@@ -27,7 +27,7 @@ const getArtworkById = async (id: string, fields: string[]): Promise<Artwork> =>
     
     const  { data } = await api.get<ArtsResponse<Data>>(`artworks/${id}`, { params })
 
-    return ArtworkMapper.mapArtwork(data.data, 500)        
+    return ArtworkMapper.mapArtwork(data.data, 'full')        
 }
 
 const getClassifications = async (): Promise<ClassificationName[]> => {

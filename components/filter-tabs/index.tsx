@@ -9,9 +9,11 @@ interface Props {
 }
 
 const FilterTabs = ({ classifications, handleSelect, selected }: Props) => {
+
   const classificationsFiltered = useMemo(() => 
       classifications.filter((classification) => classification.classification_title !== null)
   ,[classifications])  
+  
   return (
     <FlatList
         data={classificationsFiltered ?? []}
@@ -19,7 +21,7 @@ const FilterTabs = ({ classifications, handleSelect, selected }: Props) => {
         keyExtractor={item => item.classification_title + Math.random().toString()}
         renderItem={({ item }) => (
             <TabButton onPress={() => handleSelect(item.classification_title)} 
-            selected={selected === item.classification_title}>
+                       selected={selected === item.classification_title}>
                 {item.classification_title}
             </TabButton>
         )} 

@@ -11,8 +11,10 @@ interface CardProps {
 const Card = ({ poster, title, id }: CardProps) => {
   return (
     <Pressable  style={styles.itemContainer} onPress={() => router.push(`/detail/${id}`)}>
-        <Image source={{ uri: poster }} 
-               style={styles.image} resizeMode='contain' />
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: poster }} 
+                style={styles.image} resizeMode='contain' />
+        </View>
         <Text style={styles.itemTitle}>{title}</Text>
     </Pressable>
   )

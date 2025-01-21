@@ -14,7 +14,7 @@ const HomeScreen = () => {
     nextPage, 
     hasNext, 
     isFetchingNextPage } = useArtworks()
-  
+    
   const { 
     filteredData, 
     setSearch, 
@@ -44,6 +44,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   loadingContainer: {
     flex: 1,

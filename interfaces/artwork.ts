@@ -7,6 +7,7 @@ interface Artwork {
     publication_history?: string,
     short_description?: string,
     category_titles?: string[],
+    classification_titles?: string[],
     classification_title: string,
 }
 

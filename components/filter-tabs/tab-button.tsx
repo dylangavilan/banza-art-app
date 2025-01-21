@@ -1,40 +1,58 @@
-import { View, Text, Pressable, PressableProps, StyleSheet } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text } from 'react-native'
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  Easing,
+  withSequence,
+} from 'react-native-reanimated'
 
-interface Props extends PressableProps {
+interface Props {
   children: string
   selected: boolean
-  
+  onPress: () => void
 }
 
-const TabButton = ({ children, selected, ...props }: Props) => {
-  const variantStyles =  selected ? styles.selected : styles.default 
+const PressableAnimated = Animated.createAnimatedComponent(Animated.View)
+
+const TabButton = ({ children, selected, onPress }: Props) => {
+  // const backgroundColor = useSharedValue(selected ? 1 : 0)
+  // const fontSize = useSharedValue(selected ? 24 : 20)
+  // const opacity = useSharedValue(selected ? 1 : 0.5)
+  // const animatedStyle = useAnimatedStyle(() => {
+  //   return {
+  //     fontSize: withTiming(fontSize.value, { duration: 300, easing: Easing.out(Easing.ease) }),
+  //     borderBottomWidth: withTiming(backgroundColor.value, { duration: 300, easing: Easing.out(Easing.ease) }),
+  //     borderBottomColor: withTiming(backgroundColor.value ? 'black' : 'transparent', { duration: 300, easing: Easing.out(Easing.ease) }),
+  //     opacity: withTiming(opacity.value, { duration: 300, easing: Easing.out(Easing.ease) }),
+  //   }
+  // })
+
+  const handlePress = () => {
+
+    onPress()
+  }
 
   return (
-    <Pressable  style={[styles.button, variantStyles]}
-    {...props}>
-      <Text>{children}</Text>
-    </Pressable>
+    <PressableAnimated style={[styles.button]} onTouchEnd={handlePress}>
+      <Text style={styles.text}>{children}</Text>
+    </PressableAnimated>
   )
 }
 
-const styles = StyleSheet.create({ 
+const styles = StyleSheet.create({
   button: {
-    paddingHorizontal:16,
-    paddingVertical: 8,
-    backgroundColor: 'violet',
-    borderRadius: 20, 
-    marginHorizontal: 4,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    margin: 5,
   },
-  default: {
-    backgroundColor: 'violet',
+  text: {
+    color: 'black',
+    fontWeight: 'bold',
   },
-  selected: {
-    backgroundColor: 'white',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'violet',
-  }
- })
+})
 
 export default TabButton

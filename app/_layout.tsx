@@ -17,7 +17,8 @@ export default function RootLayout() {
                 name="detail/[id]"
                 options={{ 
                   headerShown: true,
-                  headerTitle: 'Detail' 
+                  headerTitle: 'Detail' ,
+                  animation: 'slide_from_right',
           }} /> 
         </Stack>
       </FavoritesProvider>

@@ -19,6 +19,7 @@ export interface Data {
     short_description:   string;
     title:               string;
     classification_title: string;
+    classification_titles: string[];
 }
 
 export interface Info {
