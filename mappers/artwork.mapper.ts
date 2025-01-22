@@ -1,7 +1,9 @@
+import { NOT_FOUND_IMAGE } from "@/constants";
 import { ArtsResponse, Data as ArtworkResponseData } from "@/interfaces/artworks-response";
 
 class ArtworkMapper {
-    static mapImageToUrl(image_id: string, width: string, heigth?: string): string {
+    static mapImageToUrl(image_id: string | null, width?: string, heigth?: string): string {
+        if(!image_id) return NOT_FOUND_IMAGE
         const size = heigth ? `${width},${heigth}` : width
         return `https://www.artic.edu/iiif/2/${image_id}/full/${size}/0/default.jpg`
     }
@@ -10,7 +12,7 @@ class ArtworkMapper {
             title: artwork.title,
             id: artwork.id,
             artist: artwork.artist_title,
-            poster: artwork.image_id ? ArtworkMapper.mapImageToUrl(artwork.image_id, width, height) : undefined,
+            poster: ArtworkMapper.mapImageToUrl(artwork.image_id ?? null, width, height) ,
             gallery_title: artwork.gallery_title,
             publication_history: artwork.publication_history,
             short_description: artwork.short_description,

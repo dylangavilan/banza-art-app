@@ -25,7 +25,6 @@ const DetailScreen = () => {
 
   if(!artwork || isLoading) return null;
   
-  const image = artwork?.poster ? artwork?.poster :  NOT_FOUND_IMAGE
   
   return (
     <ScrollView style={styles.container}>
@@ -34,7 +33,7 @@ const DetailScreen = () => {
           <ActivityIndicator style={styles.loader} size='large' color='black' />
         }
         {imageError && <Text style={styles.loader}>Image not found {':/'}</Text>}
-        <Animated.Image source={{ uri: image }} 
+        <Animated.Image source={{ uri: artwork.poster }} 
                         entering={FadeInUp.delay(500).duration(500)}
                         onLoadEnd={() => setIsLoadingImage(false)}
                         resizeMethod='scale'  resizeMode='contain' alt={artwork?.title} 
