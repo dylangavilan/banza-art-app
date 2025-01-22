@@ -1,4 +1,4 @@
-import { Text, View, Button, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import { useEffect } from 'react';
@@ -22,6 +22,7 @@ async function registerForPushNotificationsAsync() {
     }
 
     if (finalStatus !== 'granted') return;
+    
     if (Platform.OS === 'android') {
       Notifications.setNotificationChannelAsync('default', {
         name: 'default',

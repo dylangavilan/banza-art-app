@@ -1,5 +1,4 @@
-import React, {  useMemo, useState } from 'react'
-import { View, Text, FlatList,  StyleSheet, Button, TextInput, Pressable, SafeAreaView } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import { useArtworks } from '@/hooks/useArtworks'
 import ArtsList from '@/components/art-list'
 import Loader from '@/components/ui/loader'
@@ -9,7 +8,7 @@ import SearchBar from '@/components/seachbar'
 
 const HomeScreen = () => {
   const { 
-    data = [], 
+    data: artworks = [], 
     classifications = [],
     isLoading, 
     nextPage, 
@@ -17,12 +16,12 @@ const HomeScreen = () => {
     isFetchingNextPage } = useArtworks()
     
   const { 
-    filteredData, 
+    filteredData: filteredArtworks, 
     setSearch, 
     handleSelect, 
     selected
-   } = useFilterArts(data, classifications)
-
+   } = useFilterArts(artworks, classifications)
+  
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -34,9 +33,9 @@ const HomeScreen = () => {
         <Loader />
         :
         <ArtsList 
-          artworks={filteredData ?? []}
+          artworks={filteredArtworks ?? []}
           fetchNextPage={nextPage}
-          hasNext={hasNext}
+          hasNext={selected ? false : hasNext}
           isFetchingNextPage={isFetchingNextPage}
       />}
     </SafeAreaView>

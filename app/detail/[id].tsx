@@ -1,16 +1,18 @@
-import { View, Text, ScrollView, Image, StyleSheet, ActivityIndicator } from 'react-native'
+import { useEffect, useState } from 'react'
+import { View,  ScrollView, StyleSheet, ActivityIndicator, Text} from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
+import Animated, { FadeInUp } from 'react-native-reanimated';
 import { useArtworkDetail } from '@/hooks/useArtworkDetail'
-import { useEffect, useMemo, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import FavoriteButton from '@/components/favorite-button'
-import Animated, { FadeInLeft, FadeInRight, FadeInUp } from 'react-native-reanimated';
+import ArtorkDetail from '@/components/art-detail';
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams()
   const { artwork, isLoading } = useArtworkDetail(id.toString())
   const navigation = useNavigation()
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(true)
+  const [imageError, setImageError] = useState<boolean>(false)
 
   useEffect(() => {
     navigation.setOptions({
@@ -24,32 +26,19 @@ const DetailScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.imageContainer}>
+        <View style={styles.imageContainer}>
         {isLoadingImage &&
-         <ActivityIndicator style={{ position: 'absolute' }} size='large' color='black' />
+          <ActivityIndicator style={styles.loader} size='large' color='black' />
         }
-       <Animated.Image source={{ uri: artwork?.poster }} 
-                       entering={FadeInUp.delay(500).duration(500)}
-                       onLoadEnd={() => setIsLoadingImage(false)}
-                       resizeMethod='scale'  resizeMode='contain' alt={artwork?.title} 
-                       style={styles.poster} />
-      </View>
-      <View style={styles.body}>
-        <Animated.View entering={FadeInLeft.delay(300).duration(500)}>
-          <Text style={styles.title}>
-            {artwork.title} by {artwork.artist}
-          </Text>
-        </Animated.View>
-        <Animated.View entering={FadeInRight.delay(300).duration(500)}>
-          <Text style={{  fontSize: 16, marginVertical: 5 }}>
-            {artwork.short_description ?? 'Not description provided'}
-          </Text>
-          <Text  style={{ color: 'gray', fontSize: 14, marginVertical: 5 }}>
-            {artwork.category_titles?.join(', ')}
-          </Text>
-          </Animated.View>
-      </View>
-        
+        {imageError && <Text style={styles.loader}>Image not found {':/'}</Text>}
+        <Animated.Image source={{ uri: artwork?.poster }} 
+                        entering={FadeInUp.delay(500).duration(500)}
+                        onLoadEnd={() => setIsLoadingImage(false)}
+                        resizeMethod='scale'  resizeMode='contain' alt={artwork?.title} 
+                        onError={() => {setImageError(true); setIsLoadingImage(false)}}
+                        style={styles.poster} />
+        </View>
+        <ArtorkDetail artwork={artwork} />
       </ScrollView>
   )
 }
@@ -58,6 +47,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  loader: {
+     position: 'absolute' 
   },
   imageContainer: {
     backgroundColor: 'whitesmoke',
@@ -69,16 +61,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  body: {
-    padding: 10,
-    
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'black',
-  }
-  
 })
 
 export default DetailScreen

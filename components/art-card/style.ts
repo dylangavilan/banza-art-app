@@ -1,3 +1,4 @@
+import { DARK_PURPLE } from "@/constants/colors"
 import { Dimensions, StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
@@ -6,6 +7,7 @@ export const styles = StyleSheet.create({
         margin: 5,
         maxWidth: Dimensions.get('window').width / 2 - 20,
         paddingVertical: 12,
+
       },
       imageContainer: {
         backgroundColor: 'whitesmoke',

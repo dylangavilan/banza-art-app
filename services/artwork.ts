@@ -30,7 +30,7 @@ const getArtworkById = async (id: string, fields: string[]): Promise<Artwork> =>
 
 const getClassifications = async (): Promise<ClassificationName[]> => {
     try {
-        const params = new URLSearchParams({ fields: 'classification_title', limit: '10' })
+        const params = new URLSearchParams({ fields: 'classification_title', limit: '30' })
         const { data } = await api.get<ArtsResponse<ClassificationName[]>>('artworks',{ params })
         return ArtworkMapper.mapClassifications(data)
     }

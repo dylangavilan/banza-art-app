@@ -10,6 +10,5 @@ export const useArtworkDetail = (id: string) => {
         staleTime: 1000 * 60 * 60 * 24
     })
 
-
     return { artwork, isLoading, isFetching }
 }

@@ -4,8 +4,8 @@ import ArtsList from '@/components/art-list'
 import { useFavorites } from '@/context/useFavoritesContext'
 import { useArtworks } from '@/hooks/useArtworks'
 import { useFilterArts } from '@/hooks/useFilterArts'
-import FilterTabs from '@/components/filter-tabs'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import SearchBar from '@/components/seachbar'
 
 const FavoritesScreen = () => {
   const { artworks } = useFavorites()
@@ -14,8 +14,6 @@ const FavoritesScreen = () => {
   const { 
     filteredData, 
     setSearch, 
-    handleSelect, 
-    selected
   } = useFilterArts(artworks, classifications);
 
   return (
@@ -24,9 +22,15 @@ const FavoritesScreen = () => {
         <Text style={styles.title}>Your favorites</Text>
       </View>
       <View>
-        <FilterTabs classifications={classifications} handleSelect={handleSelect} selected={selected} />
+        <SearchBar onChangeText={setSearch} placeholder='Find your favorite' autoComplete='off'/>
       </View>
-      <ArtsList artworks={filteredData} />
+      {
+        artworks.length >  0 ?
+        <ArtsList artworks={filteredData} /> :
+        <View style={styles.notImagesContainer}>
+          <Text style={styles.paragraph}>There aren't arts in your favorites {':('} </Text>
+        </View>
+      }
     </SafeAreaView>
   )
 }
@@ -36,10 +40,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
-  loadingContainer: {
+  notImagesContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  paragraph:{
+    fontSize: 18,
+    fontWeight: 'semibold',
   },
   title: {
     fontSize: 24,

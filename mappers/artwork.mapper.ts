@@ -27,10 +27,16 @@ class ArtworkMapper {
     }
 
     static mapClassifications(response: ArtsResponse<ClassificationName[]>): ClassificationName[] {
-        const { data } = response
-         // mapea todos los datos de la respuesta y los guarda en un array sin repetir
-        const withoutRepeatsArray = Array.from(new Set(data.map(o => JSON.stringify(o)))).map(str => JSON.parse(str));
-        return withoutRepeatsArray
+        const { data } = response;
+    
+        // Filtrar los valores undefined
+        const filteredData = data.filter(item => item !== undefined);
+        // Crear un conjunto único a partir de los objetos serializados
+        const uniqueSerialized = Array.from(new Set(filteredData.map(item => JSON.stringify(item))));
+        // Deserializar los objetos únicos
+        const uniqueClassifications = uniqueSerialized.map(serialized => JSON.parse(serialized));
+    
+        return uniqueClassifications;
     }
 }
 export { ArtworkMapper }

@@ -1,4 +1,6 @@
+import { LIGHT_PURPLE } from '@/constants/colors';
 import { StyleSheet } from 'react-native';
+
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -8,10 +10,15 @@ export const styles = StyleSheet.create({
     },
     scrollTopButton: {
       position: 'absolute',
-      backgroundColor: 'white',
+      backgroundColor: LIGHT_PURPLE,
       borderRadius: 50,
       padding: 4,
       top: 0,
-      right: "50%"
+      right: "48%"
     },
+    footer: {
+       height: 50, 
+       justifyContent: 'center', 
+       alignItems: 'center' 
+    }
 })
