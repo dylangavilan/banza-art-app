@@ -2,6 +2,7 @@ import { StyleSheet, Dimensions, View, Image, Text, Pressable } from 'react-nati
 import { styles } from './style'
 import { router } from 'expo-router'
 import { useState } from 'react'
+import { NOT_FOUND_IMAGE } from '@/constants'
 
 interface CardProps {
     poster?: string
@@ -10,7 +11,7 @@ interface CardProps {
 }
 
 const Card = ({ poster, title, id }: CardProps) => {
-  const image = poster ? poster : 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png'
+  const image = poster ? poster : NOT_FOUND_IMAGE
 
   return (
     <Pressable  style={styles.itemContainer} onPress={() => router.push(`/detail/${id}`)}>
