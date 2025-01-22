@@ -14,7 +14,7 @@ export interface Data {
     category_titles:     string[];
     gallery_title:       string;
     id:                  number;
-    image_id:            string;
+    image_id?:            string;
     publication_history: string;
     short_description:   string;
     title:               string;

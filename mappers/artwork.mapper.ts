@@ -10,7 +10,7 @@ class ArtworkMapper {
             title: artwork.title,
             id: artwork.id,
             artist: artwork.artist_title,
-            poster: ArtworkMapper.mapImageToUrl(artwork.image_id, width, height),
+            poster: artwork.image_id ? ArtworkMapper.mapImageToUrl(artwork.image_id, width, height) : undefined,
             gallery_title: artwork.gallery_title,
             publication_history: artwork.publication_history,
             short_description: artwork.short_description,

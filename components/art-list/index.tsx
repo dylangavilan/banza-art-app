@@ -32,6 +32,8 @@ const ArtsList = ({ artworks, fetchNextPage, isFetchingNextPage, hasNext }: Prop
       setScrollPosition(offset);
   };
 
+  const renderItem = ({ item }: { item: Artwork }) => (<Card poster={item.poster} title={item.title} id={item.id.toString()} />);
+
   return (
     <View style={styles.container}>
         <FlatList
@@ -42,9 +44,7 @@ const ArtsList = ({ artworks, fetchNextPage, isFetchingNextPage, hasNext }: Prop
               handleScroll(event.nativeEvent.contentOffset.y >= 130 ? 130 : 99);
             }}
             data={artworks}
-            renderItem={({ item }) => (
-                <Card poster={item.poster} title={item.title} id={item.id.toString()} />
-            )}
+            renderItem={renderItem}
             onEndReached={() => { fetchNextPage && handleEndReached() }}
             ListFooterComponent={ 
               <View style={styles.footer}>

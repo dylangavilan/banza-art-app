@@ -6,6 +6,7 @@ import { useArtworkDetail } from '@/hooks/useArtworkDetail'
 import { useNavigation } from '@react-navigation/native';
 import FavoriteButton from '@/components/favorite-button'
 import ArtorkDetail from '@/components/art-detail';
+import { NOT_FOUND_IMAGE } from '@/constants';
 
 const DetailScreen = () => {
   const { id } = useLocalSearchParams()
@@ -23,7 +24,9 @@ const DetailScreen = () => {
   }, [navigation, artwork]);
 
   if(!artwork || isLoading) return null;
-
+  
+  const image = artwork?.poster ? artwork?.poster :  NOT_FOUND_IMAGE
+  
   return (
     <ScrollView style={styles.container}>
         <View style={styles.imageContainer}>
@@ -31,7 +34,7 @@ const DetailScreen = () => {
           <ActivityIndicator style={styles.loader} size='large' color='black' />
         }
         {imageError && <Text style={styles.loader}>Image not found {':/'}</Text>}
-        <Animated.Image source={{ uri: artwork?.poster }} 
+        <Animated.Image source={{ uri: image }} 
                         entering={FadeInUp.delay(500).duration(500)}
                         onLoadEnd={() => setIsLoadingImage(false)}
                         resizeMethod='scale'  resizeMode='contain' alt={artwork?.title} 

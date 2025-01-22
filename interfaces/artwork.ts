@@ -1,7 +1,7 @@
 interface Artwork {
     title: string,
     id: number,
-    poster: string,
+    poster?: string,
     artist: string,
     gallery_title?: string,
     publication_history?: string,
