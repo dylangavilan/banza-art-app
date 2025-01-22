@@ -5,6 +5,7 @@ import { useFavorites } from '@/context/useFavoritesContext'
 import { useArtworks } from '@/hooks/useArtworks'
 import { useFilterArts } from '@/hooks/useFilterArts'
 import FilterTabs from '@/components/filter-tabs'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const FavoritesScreen = () => {
   const { artworks } = useFavorites()
@@ -18,15 +19,15 @@ const FavoritesScreen = () => {
   } = useFilterArts(artworks, classifications);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View>
-        <Text style={styles.title}>HomeScreen</Text>
+        <Text style={styles.title}>Your favorites</Text>
       </View>
       <View>
         <FilterTabs classifications={classifications} handleSelect={handleSelect} selected={selected} />
       </View>
       <ArtsList artworks={filteredData} />
-    </View>
+    </SafeAreaView>
   )
 }
 

@@ -9,13 +9,14 @@ const useArtworks = () => {
     queryFn: ({ pageParam = 1 }) => {
         return artworkService.getAll(pageParam, DEFAULT_FIELDS)
     },
-    staleTime: 1000 * 60 * 60 * 24,
+    staleTime: 1000 * 60 * 60,
     getNextPageParam: (lastPage) => (
         lastPage.nextPage 
             ? lastPage.nextPage
             : undefined
     ),
   })
+
   const classificationsQuery = useQuery({
     queryKey: ['classifications'],
     queryFn: () => artworkService.getClassifications(),

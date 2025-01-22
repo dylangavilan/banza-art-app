@@ -13,20 +13,18 @@ const getArtworks = async (page: string,  fields: string[]): Promise<ArtworkData
         return ArtworkMapper.mapResponseToArtworkData(data)
     }
     catch(err) {
-        console.log('erroor', err)
         throw new Error('Failed to fetch artworks')
     }
 }
 
 const getArtworkById = async (id: string, fields: string[]): Promise<Artwork> =>  {
-
     let params = new URLSearchParams()
+
     if(fields) {
         params.append('fields', fields.join(','))
     }
     
     const  { data } = await api.get<ArtsResponse<Data>>(`artworks/${id}`, { params })
-
     return ArtworkMapper.mapArtwork(data.data, 'full')        
 }
 
@@ -37,13 +35,9 @@ const getClassifications = async (): Promise<ClassificationName[]> => {
         return ArtworkMapper.mapClassifications(data)
     }
     catch(err) {
-        console.log('erroor', err)
         throw new Error('Failed to fetch classifications')
     }
 }
-
-
-
 
 export const artworkService = {
     getAll: getArtworks,

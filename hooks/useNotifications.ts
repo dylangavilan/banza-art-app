@@ -21,11 +21,7 @@ async function registerForPushNotificationsAsync() {
       finalStatus = status;
     }
 
-    if (finalStatus !== 'granted') {
-      alert('Permisos para notificaciones no otorgados.');
-      return;
-    }
-
+    if (finalStatus !== 'granted') return;
     if (Platform.OS === 'android') {
       Notifications.setNotificationChannelAsync('default', {
         name: 'default',
@@ -42,16 +38,15 @@ export const useNotifications = () => {
         registerForPushNotificationsAsync();
     }, []);
 
-    const sendLocalNotification = async () => {
+    const sendLocalNotification = async (title: string, body: string) => {
         await Notifications.scheduleNotificationAsync({
             content: {
-            title: 'Notificación',
-            body: '¡Esta es una notificación local programada!',
-            data: { someData: 'data goes here' },
+            title,
+            body,
             },
             trigger: { 
                 type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL, 
-                repeats: false, seconds: 1 
+                repeats: false, seconds: 3
         },});
     };
     return {

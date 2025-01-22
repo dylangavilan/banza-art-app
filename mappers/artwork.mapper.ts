@@ -15,7 +15,8 @@ class ArtworkMapper {
             publication_history: artwork.publication_history,
             short_description: artwork.short_description,
             category_titles: artwork.category_titles,
-            classification_title: artwork.classification_title
+            classification_title: artwork.classification_title,
+            classification_titles: artwork.classification_titles,
        }
     }
     static mapResponseToArtworkData(response: ArtsResponse<ArtworkResponseData[]>): ArtworkData {
@@ -27,8 +28,9 @@ class ArtworkMapper {
 
     static mapClassifications(response: ArtsResponse<ClassificationName[]>): ClassificationName[] {
         const { data } = response
-        const uniqueArray = Array.from(new Set(data.map(o => JSON.stringify(o)))).map(str => JSON.parse(str));
-        return uniqueArray
+         // mapea todos los datos de la respuesta y los guarda en un array sin repetir
+        const withoutRepeatsArray = Array.from(new Set(data.map(o => JSON.stringify(o)))).map(str => JSON.parse(str));
+        return withoutRepeatsArray
     }
 }
 export { ArtworkMapper }

@@ -8,11 +8,14 @@ const TabLayout = () => {
     <Tabs 
         screenOptions={{
             headerTitleAlign: 'center',
-            tabBarActiveTintColor: 'tomato',
+            tabBarActiveTintColor: '#4635B1',
             headerShown: false,
+            animation: 'shift'
+
         }}
     >
       <Tabs.Screen 
+        
           name="home" 
           options={{
               tabBarIcon: ({ color, size }) => (

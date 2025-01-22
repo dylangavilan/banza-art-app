@@ -18,6 +18,7 @@ const FilterTabs = ({ classifications, handleSelect, selected }: Props) => {
     <FlatList
         data={classificationsFiltered ?? []}
         horizontal
+        showsHorizontalScrollIndicator={false}
         keyExtractor={item => item.classification_title + Math.random().toString()}
         renderItem={({ item }) => (
             <TabButton onPress={() => handleSelect(item.classification_title)} 

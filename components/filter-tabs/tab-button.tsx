@@ -1,12 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-  Easing,
-  withSequence,
-} from 'react-native-reanimated'
+import { Pressable, Text } from 'react-native'
+
+import { tabStyles } from './styles'
 
 interface Props {
   children: string
@@ -14,45 +9,14 @@ interface Props {
   onPress: () => void
 }
 
-const PressableAnimated = Animated.createAnimatedComponent(Animated.View)
-
 const TabButton = ({ children, selected, onPress }: Props) => {
-  // const backgroundColor = useSharedValue(selected ? 1 : 0)
-  // const fontSize = useSharedValue(selected ? 24 : 20)
-  // const opacity = useSharedValue(selected ? 1 : 0.5)
-  // const animatedStyle = useAnimatedStyle(() => {
-  //   return {
-  //     fontSize: withTiming(fontSize.value, { duration: 300, easing: Easing.out(Easing.ease) }),
-  //     borderBottomWidth: withTiming(backgroundColor.value, { duration: 300, easing: Easing.out(Easing.ease) }),
-  //     borderBottomColor: withTiming(backgroundColor.value ? 'black' : 'transparent', { duration: 300, easing: Easing.out(Easing.ease) }),
-  //     opacity: withTiming(opacity.value, { duration: 300, easing: Easing.out(Easing.ease) }),
-  //   }
-  // })
-
-  const handlePress = () => {
-
-    onPress()
-  }
-
+  const backgroundStyle = selected? tabStyles.selected : tabStyles.normal
   return (
-    <PressableAnimated style={[styles.button]} onTouchEnd={handlePress}>
-      <Text style={styles.text}>{children}</Text>
-    </PressableAnimated>
+    <Pressable style={[tabStyles.button, backgroundStyle]} onPress={onPress}>
+      <Text style={tabStyles.text}>{children}</Text>
+    </Pressable>
   )
 }
 
-const styles = StyleSheet.create({
-  button: {
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 20,
-    margin: 5,
-  },
-  text: {
-    color: 'black',
-    fontWeight: 'bold',
-  },
-})
 
 export default TabButton

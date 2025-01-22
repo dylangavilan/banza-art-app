@@ -6,9 +6,11 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={new QueryClient()}>
       <FavoritesProvider>
-        <Stack  screenOptions={{
-            headerTitleAlign: 'center',
-          }}>
+        <Stack  
+          initialRouteName="(tabs)"
+          screenOptions={{
+              headerTitleAlign: 'center',
+            }}>
           <Stack.Screen 
                 name="(tabs)" 
                 options={{ headerShown: false }} 
