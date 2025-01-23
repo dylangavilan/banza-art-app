@@ -1,4 +1,3 @@
-import { DARK_PURPLE } from "@/constants/colors"
 import { Dimensions, StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({

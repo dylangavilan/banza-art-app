@@ -1,4 +1,3 @@
-
 import { TextInput, TextInputProps, View } from 'react-native'
 import React from 'react'
 import { searchbarStyles } from './styles'

@@ -1,8 +1,6 @@
-import { StyleSheet, Dimensions, View, Image, Text, Pressable } from 'react-native'
+import { View, Image, Text, Pressable } from 'react-native'
 import { styles } from './style'
 import { router } from 'expo-router'
-import { useState } from 'react'
-import { NOT_FOUND_IMAGE } from '@/constants'
 
 interface CardProps {
     poster?: string

@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from 'react-native'
+import { FlatList } from 'react-native'
 import React, { useMemo } from 'react'
 import TabButton from './tab-button'
 
