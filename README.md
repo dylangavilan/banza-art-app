@@ -1,4 +1,4 @@
-# Art Gallery app
+# Banza Gallery app
 
 Stack: 
 - Expo Router
